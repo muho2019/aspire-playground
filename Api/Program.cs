@@ -43,6 +43,8 @@ if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
     {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogInformation("Starting migration...");
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         // DB가 없으면 생성하고, 마이그레이션 적용
         await db.Database.MigrateAsync();
